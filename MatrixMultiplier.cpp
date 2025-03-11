@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cstdlib>  // Äëÿ rand()
-#include <ctime>    // Äëÿ srand(time(0))
+#include <cstdlib>  // Для rand()
+#include <ctime>    // Для srand(time(0))
 #include <chrono>
 #include <vector>
 #include <iomanip>
@@ -9,9 +9,9 @@
 using namespace std;
 using namespace chrono;
 
-const int MATRIX_SIZE = 10;  // Renamed to avoid conflict with Windows.h
+const int MATRIX_SIZE = 10;
 
-// Ôóíêö³ÿ äëÿ çàïîâíåííÿ ìàòðèö³ âèïàäêîâèìè ÷èñëàìè (0-9)
+// Функція для заповнення матриці випадковими числами (0-9)
 void fillMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
@@ -20,7 +20,7 @@ void fillMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   }
 }
 
-// Ôóíêö³ÿ äëÿ âèâîäó ìàòðèö³
+// Функція для виводу матриці
 void printMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
@@ -31,7 +31,7 @@ void printMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
 }
 
 void printTimeMatrix(const vector<vector<long long>>& timeMatrix) {
-  cout << "\n×àñ âèêîíàííÿ äëÿ êîæíîãî åëåìåíòà (íàíîñåêóíäè):\n";
+  cout << "\nЧас виконання для кожного елемента (наносекунди):\n";
   for (const auto& row : timeMatrix) {
     for (long long t : row) {
       cout << setw(12) << t << " ";
@@ -44,7 +44,7 @@ int main() {
   setlocale(LC_ALL, "Ukrainian");
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
-  srand(time(0)); // ²í³ö³àë³çàö³ÿ ãåíåðàòîðà âèïàäêîâèõ ÷èñåë
+  srand(time(0)); // Ініціалізація генератора випадкових чисел
 
   int A[MATRIX_SIZE][MATRIX_SIZE], B[MATRIX_SIZE][MATRIX_SIZE], C[MATRIX_SIZE][MATRIX_SIZE];
 
@@ -59,24 +59,24 @@ int main() {
 
   vector<vector<long long>> timeMatrix(MATRIX_SIZE, vector<long long>(MATRIX_SIZE));
 
-  // Ïî÷àòîê âèì³ðþâàííÿ çàãàëüíîãî ÷àñó
+  // Початок вимірювання загального часу
   auto totalStart = high_resolution_clock::now();
 
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
-      auto start = high_resolution_clock::now(); // Ïî÷àòîê âèì³ðþâàííÿ äëÿ îêðåìîãî åëåìåíòà
+      auto start = high_resolution_clock::now(); // Початок вимірювання для окремого елемента
 
       C[i][j] = 0;
       for (int k = 0; k < MATRIX_SIZE; k++) {
         C[i][j] += A[i][k] * B[k][j];
       }
 
-      auto stop = high_resolution_clock::now(); // Ê³íåöü âèì³ðþâàííÿ äëÿ îêðåìîãî åëåìåíòà
+      auto stop = high_resolution_clock::now(); // Кінець вимірювання для окремого елемента
       timeMatrix[i][j] = duration_cast<nanoseconds>(stop - start).count();
     }
   }
 
-  // Ê³íåöü âèì³ðþâàííÿ çàãàëüíîãî ÷àñó
+  // Кінець вимірювання загального часу
   auto totalStop = high_resolution_clock::now();
   long long totalTime = duration_cast<nanoseconds>(totalStop - totalStart).count();
 
@@ -84,8 +84,8 @@ int main() {
   printMatrix(C);
   printTimeMatrix(timeMatrix);
 
-  // Âèâåäåííÿ çàãàëüíîãî ÷àñó
-  cout << "\nÇàãàëüíèé ÷àñ âèêîíàííÿ ìíîæåííÿ ìàòðèöü: " << totalTime << " íàíîñåêóíä\n";
+  // Виведення загального часу
+  cout << "\nЗагальний час виконання множення матриць: " << totalTime << " наносекунд\n";
 
   return 0;
 }

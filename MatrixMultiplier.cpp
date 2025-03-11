@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cstdlib>  // Для rand()
-#include <ctime>    // Для srand(time(0))
+#include <cstdlib>  // Г„Г«Гї rand()
+#include <ctime>    // Г„Г«Гї srand(time(0))
 #include <chrono>
 #include <vector>
 #include <iomanip>
@@ -11,7 +11,7 @@ using namespace chrono;
 
 const int MATRIX_SIZE = 10;  // Renamed to avoid conflict with Windows.h
 
-// Функція для заповнення матриці випадковими числами (0-9)
+// Г”ГіГ­ГЄГ¶ВіГї Г¤Г«Гї Г§Г ГЇГ®ГўГ­ГҐГ­Г­Гї Г¬Г ГІГ°ГЁГ¶Ві ГўГЁГЇГ Г¤ГЄГ®ГўГЁГ¬ГЁ Г·ГЁГ±Г«Г Г¬ГЁ (0-9)
 void fillMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
@@ -20,7 +20,7 @@ void fillMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   }
 }
 
-// Функція для виводу матриці
+// Г”ГіГ­ГЄГ¶ВіГї Г¤Г«Гї ГўГЁГўГ®Г¤Гі Г¬Г ГІГ°ГЁГ¶Ві
 void printMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
@@ -31,7 +31,7 @@ void printMatrix(int matrix[MATRIX_SIZE][MATRIX_SIZE]) {
 }
 
 void printTimeMatrix(const vector<vector<long long>>& timeMatrix) {
-  cout << "\nЧас виконання для кожного елемента (наносекунди):\n";
+  cout << "\nГ—Г Г± ГўГЁГЄГ®Г­Г Г­Г­Гї Г¤Г«Гї ГЄГ®Г¦Г­Г®ГЈГ® ГҐГ«ГҐГ¬ГҐГ­ГІГ  (Г­Г Г­Г®Г±ГҐГЄГіГ­Г¤ГЁ):\n";
   for (const auto& row : timeMatrix) {
     for (long long t : row) {
       cout << setw(12) << t << " ";
@@ -44,7 +44,7 @@ int main() {
   setlocale(LC_ALL, "Ukrainian");
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
-  srand(time(0)); // Ініціалізація генератора випадкових чисел
+  srand(time(0)); // ВІГ­ВіГ¶ВіГ Г«ВіГ§Г Г¶ВіГї ГЈГҐГ­ГҐГ°Г ГІГ®Г°Г  ГўГЁГЇГ Г¤ГЄГ®ГўГЁГµ Г·ГЁГ±ГҐГ«
 
   int A[MATRIX_SIZE][MATRIX_SIZE], B[MATRIX_SIZE][MATRIX_SIZE], C[MATRIX_SIZE][MATRIX_SIZE];
 
@@ -59,24 +59,24 @@ int main() {
 
   vector<vector<long long>> timeMatrix(MATRIX_SIZE, vector<long long>(MATRIX_SIZE));
 
-  // Початок вимірювання загального часу
+  // ГЏГ®Г·Г ГІГ®ГЄ ГўГЁГ¬ВіГ°ГѕГўГ Г­Г­Гї Г§Г ГЈГ Г«ГјГ­Г®ГЈГ® Г·Г Г±Гі
   auto totalStart = high_resolution_clock::now();
 
   for (int i = 0; i < MATRIX_SIZE; i++) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
-      auto start = high_resolution_clock::now(); // Початок вимірювання для окремого елемента
+      auto start = high_resolution_clock::now(); // ГЏГ®Г·Г ГІГ®ГЄ ГўГЁГ¬ВіГ°ГѕГўГ Г­Г­Гї Г¤Г«Гї Г®ГЄГ°ГҐГ¬Г®ГЈГ® ГҐГ«ГҐГ¬ГҐГ­ГІГ 
 
       C[i][j] = 0;
       for (int k = 0; k < MATRIX_SIZE; k++) {
         C[i][j] += A[i][k] * B[k][j];
       }
 
-      auto stop = high_resolution_clock::now(); // Кінець вимірювання для окремого елемента
+      auto stop = high_resolution_clock::now(); // ГЉВіГ­ГҐГ¶Гј ГўГЁГ¬ВіГ°ГѕГўГ Г­Г­Гї Г¤Г«Гї Г®ГЄГ°ГҐГ¬Г®ГЈГ® ГҐГ«ГҐГ¬ГҐГ­ГІГ 
       timeMatrix[i][j] = duration_cast<nanoseconds>(stop - start).count();
     }
   }
 
-  // Кінець вимірювання загального часу
+  // ГЉВіГ­ГҐГ¶Гј ГўГЁГ¬ВіГ°ГѕГўГ Г­Г­Гї Г§Г ГЈГ Г«ГјГ­Г®ГЈГ® Г·Г Г±Гі
   auto totalStop = high_resolution_clock::now();
   long long totalTime = duration_cast<nanoseconds>(totalStop - totalStart).count();
 
@@ -84,8 +84,8 @@ int main() {
   printMatrix(C);
   printTimeMatrix(timeMatrix);
 
-  // Виведення загального часу
-  cout << "\nЗагальний час виконання множення матриць: " << totalTime << " наносекунд\n";
+  // Г‚ГЁГўГҐГ¤ГҐГ­Г­Гї Г§Г ГЈГ Г«ГјГ­Г®ГЈГ® Г·Г Г±Гі
+  cout << "\nГ‡Г ГЈГ Г«ГјГ­ГЁГ© Г·Г Г± ГўГЁГЄГ®Г­Г Г­Г­Гї Г¬Г­Г®Г¦ГҐГ­Г­Гї Г¬Г ГІГ°ГЁГ¶Гј: " << totalTime << " Г­Г Г­Г®Г±ГҐГЄГіГ­Г¤\n";
 
   return 0;
 }
